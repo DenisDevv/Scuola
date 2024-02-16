@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import javax.lang.model.util.ElementScanner6;
+
 import java.util.Random;
 import java.util.Arrays;
 public class Esercizio100 {
@@ -10,7 +12,8 @@ public class Esercizio100 {
 				System.out.println("Inserisci la dimensione array: ");
 				input = in.nextInt();
 				int numero;
-				int[] arrayUtente = new int[input];
+				int[] arrayUtente = new int[100];
+                int indiceArr = input;
 		do {
                 System.out.println("");
                 System.out.println("");
@@ -18,13 +21,14 @@ public class Esercizio100 {
 				System.out.println("1 - Carica l'array manualmente");
 				System.out.println("2 - Carica l'array in maniera casuale");
 				System.out.println("3 - Visualizza l'array");
-				System.out.println("4 - Cancella un elemento");
-				System.out.println("5 - Cancella tutte le occorrenze di un elemento");
-				System.out.println("6 - Esci");
+                System.out.println("4 - Inserisci un elemento");
+				System.out.println("5 - Cancella un elemento");
+				System.out.println("6 - Cancella tutte le occorrenze di un elemento");
+				System.out.println("7 - Esci");
 				input = in.nextInt();
 				switch (input){
 						case 1: {
-								for (int i = 0; i < arrayUtente.length; i++) {
+								for (int i = 0; i < indiceArr; i++) {
 										System.out.println("Inserisci il valore #" + (i+1));
 										input = in.nextInt();
 										arrayUtente[i] = input;
@@ -32,7 +36,8 @@ public class Esercizio100 {
 								break;
 						}
 						case 2: {
-								for (int i = 0; i < arrayUtente.length; i++) {
+
+								for (int i = 0; i < indiceArr; i++) {
 										numero = rand.nextInt();
 										arrayUtente[i] = numero;
 								}
@@ -41,28 +46,56 @@ public class Esercizio100 {
 						case 3: {
 								System.out.println("");
 								System.out.print("Ecco gli elementi dell'array: ");
-								for (int elemento : arrayUtente) {
-										System.out.print(elemento + "; ");
+								for (int i = 0; i < indiceArr; i++) {
+										System.out.print(arrayUtente[i] + "; ");
 								}
 								break;
 						}
-						case 4: {
-								System.out.println("Inserisci la cella da sostituire con 0 (" + 0 + " - " + (arrayUtente.length - 1) + ")");
-								input = in.nextInt();
-								arrayUtente[input] = 0;
-								break;
-						}
+                        case 4: {
+                                System.out.println("Inserisci la posizione in cui vuoi inserire l'elemento (" + 1 + " - " + (indiceArr + 1) + ")");
+                                input = in.nextInt();
+                                input--;
+                                System.out.println("Inserisci l'elemento che vuoi inserire: ");
+                                int elemento = in.nextInt();
+                                for (int i = indiceArr; i > input; i--) {
+                                    arrayUtente[i] = arrayUtente[i-1];
+                                }
+                                arrayUtente[input] = elemento;
+                                indiceArr++;
+                                break;
+                            }
 						case 5: {
-								System.out.println("Inserisci il numero da sostituire con 0");
+								System.out.println("Inserisci l'elemento da rimuovere (" + 1 + " - " + indiceArr + ")");
 								input = in.nextInt();
-								for (int i = 0; i < arrayUtente.length; i++) {
-                                    if (arrayUtente[i] == input) {
-										arrayUtente[i] = 0;
+                                input--;
+                                if (input < indiceArr && input >=0) {
+                                    
+                                    for (int i = 0, j = 0; i < indiceArr; i++) {
+                                        if (i != input) {
+                                            arrayUtente[i++] = arrayUtente[j];
+                                        }  else {
+                                            j++;
+                                        }
                                     }
-								}
+                                    indiceArr--;
+                                    
+                                } else {
+                                    System.out.println("Numero non valido.");
+                                }
 								break;
 						}
 						case 6: {
+								System.out.println("Inserisci il numero da rimuovere in tutte le occorrenze");
+								input = in.nextInt();
+                                for (int i = 0, j = 0; i < indiceArr; i++) {
+                                    if (arrayUtente[i] != input) {
+                                        arrayUtente[i++] = arrayUtente[j];
+                                    }
+                                    indiceArr--;
+                                }
+								break;
+						}
+						case 7: {
 								scelta = false;
 						}
 						default: {
