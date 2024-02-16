@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import javax.lang.model.util.ElementScanner6;
-
 import java.util.Random;
 import java.util.Arrays;
 public class Esercizio100 {
@@ -64,26 +62,20 @@ public class Esercizio100 {
                                 indiceArr++;
                                 break;
                             }
-						case 5: {
-								System.out.println("Inserisci l'elemento da rimuovere (" + 1 + " - " + indiceArr + ")");
-								input = in.nextInt();
+                            case 5: {
+                                System.out.println("Inserisci l'elemento da rimuovere (" + 1 + " - " + indiceArr + ")");
+                                input = in.nextInt();
                                 input--;
-                                if (input < indiceArr && input >=0) {
-                                    
-                                    for (int i = 0, j = 0; i < indiceArr; i++) {
-                                        if (i != input) {
-                                            arrayUtente[i++] = arrayUtente[j];
-                                        }  else {
-                                            j++;
-                                        }
+                                if (input >= 0 && input < indiceArr) {
+                                    for (int i = input; i < indiceArr - 1; i++) {
+                                        arrayUtente[i] = arrayUtente[i + 1];
                                     }
                                     indiceArr--;
-                                    
                                 } else {
                                     System.out.println("Numero non valido.");
                                 }
-								break;
-						}
+                                break;
+                            }
 						case 6: {
 								System.out.println("Inserisci il numero da rimuovere in tutte le occorrenze");
 								input = in.nextInt();
